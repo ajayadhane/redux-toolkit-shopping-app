@@ -9,6 +9,8 @@ function Products() {
   }, []);
 
   const productSelector = useSelector((state) => state.product.items);
+  const cartSelector = useSelector((state) => state.cart.items);
+
   console.log(productSelector);
 
   return (
@@ -62,18 +64,41 @@ function Products() {
                   ₹ {price}
                 </div>
 
-                <button
-                  className=" cursor-pointer
+                {cartSelector.find((cartItem) => cartItem.id === id) ? (
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        removeItems({ id, thumbnail, title, rating, price })
+                      )
+                    }
+                    className=" cursor-pointer
+                              mt-auto bg-linear-to-r from-red-500 via-purple-800 to-red-900 
+                              text-white font-semibold py-2.5 rounded-lg
+                              transition-all duration-300 ease-out
+                              hover:from-indigo-800 hover:via-purple-800 hover:to-blue-900
+                              hover:scale-[1.03]
+                            "
+                  >
+                    Remove From Cart
+                  </button>
+                ) : (
+                  <button
+                    className=" cursor-pointer
                               mt-auto bg-linear-to-r from-indigo-900 via-purple-900 to-blue-950 
                               text-white font-semibold py-2.5 rounded-lg
                               transition-all duration-300 ease-out
                               hover:from-indigo-800 hover:via-purple-800 hover:to-blue-900
                               hover:scale-[1.03]
                             "
-                  onClick={() => dispatch(addItems())}
-                >
-                  Shop Now
-                </button>
+                    onClick={() =>
+                      dispatch(
+                        addItems({ id, thumbnail, title, rating, price })
+                      )
+                    }
+                  >
+                    Shop Now
+                  </button>
+                )}
               </div>
             </div>
           ))}

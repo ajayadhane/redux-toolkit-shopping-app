@@ -3,7 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 function Header() {
-  const selector = useSelector((state) => state.cart.value);
+  const cartSelector = useSelector((state) => state.cart.items);
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-indigo-900 via-purple-900 to-blue-950 text-white">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
@@ -23,7 +23,7 @@ function Header() {
         <div className="relative cursor-pointer hover:text-blue-300 transition-colors">
           <FaShoppingCart size={24} />
           <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-            <strong>{selector}</strong>
+            <strong>{cartSelector.length ? cartSelector.length : 0}</strong>
           </span>
         </div>
       </div>
